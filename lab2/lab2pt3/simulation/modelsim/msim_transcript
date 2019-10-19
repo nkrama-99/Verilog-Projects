@@ -1,0 +1,104 @@
+# Reading D:/intelFPGA_lite/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# do HEXdecoder_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying D:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -vlog01compat -work work +incdir+E:/Projects/ECE241/lab2pt3 {E:/Projects/ECE241/lab2pt3/HEXdecoder.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 00:49:36 on Sep 25,2019
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+E:/Projects/ECE241/lab2pt3" E:/Projects/ECE241/lab2pt3/HEXdecoder.v 
+# -- Compiling module HEXdecoder
+# -- Compiling module HEXdefinition
+# 
+# Top level modules:
+# 	HEXdecoder
+# End time: 00:49:36 on Sep 25,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+dir
+#  Volume in drive E is My Data
+#  Volume Serial Number is BEF0-73C0
+# 
+#  Directory of E:\Projects\ECE241\lab2pt3\simulation\modelsim
+# 
+# 09/25/2019  12:49 AM    <DIR>          .
+# 09/25/2019  12:49 AM    <DIR>          ..
+# 09/24/2019  08:48 PM                43 HEXdecoder.sft
+# 09/24/2019  08:48 PM            13,940 HEXdecoder.vo
+# 09/24/2019  08:48 PM             1,343 HEXdecoder_modelsim.xrf
+# 09/25/2019  12:49 AM               222 HEXdecoder_run_msim_rtl_verilog.do
+# 09/25/2019  12:49 AM            11,131 modelsim.ini
+# 09/25/2019  12:49 AM             1,027 msim_transcript
+# 09/25/2019  12:49 AM    <DIR>          rtl_work
+#                6 File(s)         27,706 bytes
+#                3 Dir(s)  280,643,362,816 bytes free
+cd ..
+# reading D:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini
+cd ..
+dir
+#  Volume in drive E is My Data
+#  Volume Serial Number is BEF0-73C0
+# 
+#  Directory of E:\Projects\ECE241\lab2pt3
+# 
+# 09/25/2019  12:55 AM    <DIR>          .
+# 09/25/2019  12:55 AM    <DIR>          ..
+# 09/25/2019  12:42 AM    <DIR>          00 submission
+# 09/24/2019  08:48 PM             4,875 c5_pin_model_dump.txt
+# 09/25/2019  12:49 AM    <DIR>          db
+# 09/24/2019  07:50 PM             1,325 HEXdecoder.qpf
+# 09/24/2019  08:47 PM            49,764 HEXdecoder.qsf
+# 09/24/2019  08:45 PM             2,541 HEXdecoder.qsf.bak
+# 09/24/2019  08:59 PM             1,877 HEXdecoder.v
+# 09/24/2019  08:45 PM             1,903 HEXdecoder.v.bak
+# 09/25/2019  12:49 AM               929 HEXdecoder_nativelink_simulation.rpt
+# 09/24/2019  08:48 PM    <DIR>          incremental_db
+# 09/24/2019  08:48 PM    <DIR>          output_files
+# 09/24/2019  08:48 PM    <DIR>          simulation
+# 09/24/2019  07:28 PM            11,003 truth_table.xlsx
+# 09/25/2019  01:14 AM             1,058 wave_rama_pt3.do
+#                9 File(s)         75,275 bytes
+#                7 Dir(s)  280,643,362,816 bytes free
+do wave_rama_pt3.do
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 01:14:39 on Sep 25,2019
+# vlog -reportprogress 300 HEXdecoder.v 
+# -- Compiling module HEXdecoder
+# -- Compiling module HEXdefinition
+# 
+# Top level modules:
+# 	HEXdecoder
+# End time: 01:14:39 on Sep 25,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim HEXdecoder 
+# Start time: 01:14:39 on Sep 25,2019
+# Loading work.HEXdecoder
+# Loading work.HEXdefinition
+exit -sim
+# End time: 01:17:13 on Sep 25,2019, Elapsed time: 0:02:34
+# Errors: 0, Warnings: 0
+do wave_rama_pt3.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 01:17:15 on Sep 25,2019
+# vlog -reportprogress 300 HEXdecoder.v 
+# -- Compiling module HEXdecoder
+# -- Compiling module HEXdefinition
+# 
+# Top level modules:
+# 	HEXdecoder
+# End time: 01:17:15 on Sep 25,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim HEXdecoder 
+# Start time: 01:17:15 on Sep 25,2019
+# Loading work.HEXdecoder
+# Loading work.HEXdefinition
+# End time: 01:41:12 on Sep 25,2019, Elapsed time: 0:23:57
+# Errors: 0, Warnings: 0

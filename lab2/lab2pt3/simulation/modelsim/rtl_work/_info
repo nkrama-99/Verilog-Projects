@@ -1,0 +1,56 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dE:/Projects/ECE241/lab2pt3/simulation/modelsim
+vHEXdecoder
+Z1 !s110 1569386976
+!i10b 1
+!s100 hLX@810z<Cf06G7o;2Ho23
+I1Tz5hPLm2gNEkJkYhR1j43
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+Z3 w1569373151
+Z4 8E:/Projects/ECE241/lab2pt3/HEXdecoder.v
+Z5 FE:/Projects/ECE241/lab2pt3/HEXdecoder.v
+L0 6
+Z6 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z7 !s108 1569386976.000000
+Z8 !s107 E:/Projects/ECE241/lab2pt3/HEXdecoder.v|
+Z9 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+E:/Projects/ECE241/lab2pt3|E:/Projects/ECE241/lab2pt3/HEXdecoder.v|
+!i113 1
+Z10 o-vlog01compat -work work
+Z11 !s92 -vlog01compat -work work +incdir+E:/Projects/ECE241/lab2pt3
+Z12 tCvgOpt 0
+n@h@e@xdecoder
+vHEXdefinition
+R1
+!i10b 1
+!s100 BC=Tc0_@<R61MT``>KUXd1
+IgN_`MO]`UNc9^C3<jVOld2
+R2
+R0
+R3
+R4
+R5
+L0 26
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+R12
+n@h@e@xdefinition

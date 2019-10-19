@@ -1,0 +1,113 @@
+# Reading D:/intelFPGA_lite/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# do mux2to1_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying D:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -vlog01compat -work work +incdir+E:/Projects/ECE241/lab2pt2/mux2to1 {E:/Projects/ECE241/lab2pt2/mux2to1/mux2to1.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:30:56 on Sep 25,2019
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+E:/Projects/ECE241/lab2pt2/mux2to1" E:/Projects/ECE241/lab2pt2/mux2to1/mux2to1.v 
+# -- Compiling module mux2to1
+# -- Compiling module v7404
+# -- Compiling module v7408
+# -- Compiling module v7432
+# 
+# Top level modules:
+# 	mux2to1
+# End time: 15:30:56 on Sep 25,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+cd ..
+# reading D:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini
+cd ..
+dir
+#  Volume in drive E is My Data
+#  Volume Serial Number is BEF0-73C0
+# 
+#  Directory of E:\Projects\ECE241\lab2pt2\mux2to1
+# 
+# 09/25/2019  03:30 PM    <DIR>          .
+# 09/25/2019  03:30 PM    <DIR>          ..
+# 09/25/2019  12:35 PM    <DIR>          00 submission
+# 09/25/2019  12:19 PM               747 and.do
+# 09/23/2019  10:16 PM             4,875 c5_pin_model_dump.txt
+# 09/25/2019  03:30 PM    <DIR>          db
+# 09/07/2019  08:54 PM            44,713 DE1_SoC.qsf
+# 09/23/2019  10:16 PM    <DIR>          incremental_db
+# 09/23/2019  08:58 PM             1,322 mux2to1.qpf
+# 09/23/2019  10:29 PM            15,060 mux2to1.qsf
+# 09/23/2019  10:15 PM             2,671 mux2to1.qsf.bak
+# 09/23/2019  10:16 PM             1,312 mux2to1.v
+# 09/23/2019  08:59 PM                 0 mux2to1.v.bak
+# 09/25/2019  03:30 PM             1,057 mux2to1_nativelink_simulation.rpt
+# 09/25/2019  12:20 PM               493 not.do
+# 09/25/2019  12:14 AM               805 not2_and2.do
+# 09/25/2019  12:26 PM               611 or.do
+# 09/23/2019  10:17 PM    <DIR>          output_files
+# 09/25/2019  12:20 PM               752 pt2_toplevel.do
+# 09/23/2019  10:29 PM    <DIR>          simulation
+# 09/25/2019  01:12 PM            49,152 vsim.wlf
+# 09/23/2019  10:29 PM               807 wave_rama_pt2.do
+# 09/25/2019  12:27 PM    <DIR>          work
+#               15 File(s)        124,377 bytes
+#                8 Dir(s)  280,634,437,632 bytes free
+do pt2_toplevel.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:31:11 on Sep 25,2019
+# vlog -reportprogress 300 mux2to1.v 
+# -- Compiling module mux2to1
+# -- Compiling module v7404
+# -- Compiling module v7408
+# -- Compiling module v7432
+# 
+# Top level modules:
+# 	mux2to1
+# End time: 15:31:12 on Sep 25,2019, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vsim mux2to1 
+# Start time: 15:31:12 on Sep 25,2019
+# Loading work.mux2to1
+# Loading work.v7404
+# Loading work.v7408
+# Loading work.v7432
+# ** Warning: (vsim-3017) mux2to1.v(10): [TFMPC] - Too few port connections. Expected 12, found 2.
+#    Time: 0 ns  Iteration: 0  Instance: /mux2to1/notGate File: mux2to1.v
+# ** Warning: (vsim-3722) mux2to1.v(10): [TFMPC] - Missing connection for port 'pin3'.
+# ** Warning: (vsim-3722) mux2to1.v(10): [TFMPC] - Missing connection for port 'pin5'.
+# ** Warning: (vsim-3722) mux2to1.v(10): [TFMPC] - Missing connection for port 'pin9'.
+# ** Warning: (vsim-3722) mux2to1.v(10): [TFMPC] - Missing connection for port 'pin11'.
+# ** Warning: (vsim-3722) mux2to1.v(10): [TFMPC] - Missing connection for port 'pin13'.
+# ** Warning: (vsim-3722) mux2to1.v(10): [TFMPC] - Missing connection for port 'pin4'.
+# ** Warning: (vsim-3722) mux2to1.v(10): [TFMPC] - Missing connection for port 'pin6'.
+# ** Warning: (vsim-3722) mux2to1.v(10): [TFMPC] - Missing connection for port 'pin8'.
+# ** Warning: (vsim-3722) mux2to1.v(10): [TFMPC] - Missing connection for port 'pin10'.
+# ** Warning: (vsim-3722) mux2to1.v(10): [TFMPC] - Missing connection for port 'pin12'.
+# ** Warning: (vsim-3017) mux2to1.v(15): [TFMPC] - Too few port connections. Expected 12, found 6.
+#    Time: 0 ns  Iteration: 0  Instance: /mux2to1/andGate File: mux2to1.v
+# ** Warning: (vsim-3722) mux2to1.v(15): [TFMPC] - Missing connection for port 'pin12'.
+# ** Warning: (vsim-3722) mux2to1.v(15): [TFMPC] - Missing connection for port 'pin13'.
+# ** Warning: (vsim-3722) mux2to1.v(15): [TFMPC] - Missing connection for port 'pin10'.
+# ** Warning: (vsim-3722) mux2to1.v(15): [TFMPC] - Missing connection for port 'pin9'.
+# ** Warning: (vsim-3722) mux2to1.v(15): [TFMPC] - Missing connection for port 'pin11'.
+# ** Warning: (vsim-3722) mux2to1.v(15): [TFMPC] - Missing connection for port 'pin8'.
+# ** Warning: (vsim-3017) mux2to1.v(24): [TFMPC] - Too few port connections. Expected 12, found 3.
+#    Time: 0 ns  Iteration: 0  Instance: /mux2to1/orGate File: mux2to1.v
+# ** Warning: (vsim-3722) mux2to1.v(24): [TFMPC] - Missing connection for port 'pin4'.
+# ** Warning: (vsim-3722) mux2to1.v(24): [TFMPC] - Missing connection for port 'pin5'.
+# ** Warning: (vsim-3722) mux2to1.v(24): [TFMPC] - Missing connection for port 'pin13'.
+# ** Warning: (vsim-3722) mux2to1.v(24): [TFMPC] - Missing connection for port 'pin12'.
+# ** Warning: (vsim-3722) mux2to1.v(24): [TFMPC] - Missing connection for port 'pin10'.
+# ** Warning: (vsim-3722) mux2to1.v(24): [TFMPC] - Missing connection for port 'pin9'.
+# ** Warning: (vsim-3722) mux2to1.v(24): [TFMPC] - Missing connection for port 'pin6'.
+# ** Warning: (vsim-3722) mux2to1.v(24): [TFMPC] - Missing connection for port 'pin11'.
+# ** Warning: (vsim-3722) mux2to1.v(24): [TFMPC] - Missing connection for port 'pin8'.
+# End time: 15:42:48 on Sep 25,2019, Elapsed time: 0:11:36
+# Errors: 0, Warnings: 28

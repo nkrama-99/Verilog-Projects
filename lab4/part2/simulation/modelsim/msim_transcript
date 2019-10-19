@@ -1,0 +1,102 @@
+# Reading D:/intelFPGA_lite/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# do ALU_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying D:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -vlog01compat -work work +incdir+E:/Projects/ECE241/lab4/pt2b {E:/Projects/ECE241/lab4/pt2b/ALU.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:41:16 on Oct 08,2019
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+E:/Projects/ECE241/lab4/pt2b" E:/Projects/ECE241/lab4/pt2b/ALU.v 
+# -- Compiling module ripple_carry_adder
+# -- Compiling module FA
+# -- Compiling module HEXdefinition
+# -- Compiling module flipflop
+# -- Compiling module ALU
+# 
+# Top level modules:
+# 	ALU
+# End time: 23:41:16 on Oct 08,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+cd ..
+# reading D:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini
+cd ..
+dir
+#  Volume in drive E is My Data
+#  Volume Serial Number is BEF0-73C0
+# 
+#  Directory of E:\Projects\ECE241\lab4\pt2b
+# 
+# 10/08/2019  11:40 PM    <DIR>          .
+# 10/08/2019  11:40 PM    <DIR>          ..
+# 10/07/2019  04:47 PM             1,314 ALU.qpf
+# 10/07/2019  07:47 PM            15,044 ALU.qsf
+# 10/07/2019  07:41 PM             2,825 ALU.qsf.bak
+# 10/08/2019  11:39 PM             5,917 ALU.v
+# 10/08/2019  11:41 PM             1,048 ALU_nativelink_simulation.rpt
+# 10/07/2019  07:48 PM             4,875 c5_pin_model_dump.txt
+# 10/08/2019  11:41 PM    <DIR>          db
+# 10/07/2019  06:36 PM    <DIR>          incremental_db
+# 10/08/2019  11:38 PM             2,873 lab4pt2.do
+# 10/08/2019  11:38 PM             5,564 lab4pt2_old.do
+# 10/08/2019  11:37 PM             1,223 lab4pt2_urmil.do
+# 10/07/2019  07:48 PM    <DIR>          output_files
+# 10/07/2019  06:37 PM    <DIR>          simulation
+#                9 File(s)         40,683 bytes
+#                6 Dir(s)  270,537,134,080 bytes free
+do lab4pt2_urmil.do
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:41:29 on Oct 08,2019
+# vlog -reportprogress 300 ALU.v 
+# -- Compiling module ripple_carry_adder
+# -- Compiling module FA
+# -- Compiling module HEXdefinition
+# -- Compiling module flipflop
+# -- Compiling module ALU
+# 
+# Top level modules:
+# 	ALU
+# End time: 23:41:29 on Oct 08,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim ALU 
+# Start time: 23:41:29 on Oct 08,2019
+# Loading work.ALU
+# Loading work.ripple_carry_adder
+# Loading work.FA
+# Loading work.flipflop
+# Loading work.HEXdefinition
+# ** Warning: (vsim-3015) ALU.v(93): [PCDPC] - Port size (1) does not match connection size (32) for port 'Cin'. The port definition is at: ALU.v(3).
+#    Time: 0 ns  Iteration: 0  Instance: /ALU/FA1 File: ALU.v
+# ** Warning: (vsim-3015) ALU.v(179): [PCDPC] - Port size (1) does not match connection size (32) for port 'x1'. The port definition is at: ALU.v(30).
+#    Time: 0 ns  Iteration: 0  Instance: /ALU/hex1 File: ALU.v
+# ** Warning: (vsim-3015) ALU.v(179): [PCDPC] - Port size (1) does not match connection size (32) for port 'x2'. The port definition is at: ALU.v(30).
+#    Time: 0 ns  Iteration: 0  Instance: /ALU/hex1 File: ALU.v
+# ** Warning: (vsim-3015) ALU.v(179): [PCDPC] - Port size (1) does not match connection size (32) for port 'x3'. The port definition is at: ALU.v(30).
+#    Time: 0 ns  Iteration: 0  Instance: /ALU/hex1 File: ALU.v
+# ** Warning: (vsim-3015) ALU.v(179): [PCDPC] - Port size (1) does not match connection size (32) for port 'x4'. The port definition is at: ALU.v(30).
+#    Time: 0 ns  Iteration: 0  Instance: /ALU/hex1 File: ALU.v
+# ** Warning: (vsim-3015) ALU.v(194): [PCDPC] - Port size (1) does not match connection size (32) for port 'x1'. The port definition is at: ALU.v(30).
+#    Time: 0 ns  Iteration: 0  Instance: /ALU/hex2 File: ALU.v
+# ** Warning: (vsim-3015) ALU.v(194): [PCDPC] - Port size (1) does not match connection size (32) for port 'x2'. The port definition is at: ALU.v(30).
+#    Time: 0 ns  Iteration: 0  Instance: /ALU/hex2 File: ALU.v
+# ** Warning: (vsim-3015) ALU.v(194): [PCDPC] - Port size (1) does not match connection size (32) for port 'x3'. The port definition is at: ALU.v(30).
+#    Time: 0 ns  Iteration: 0  Instance: /ALU/hex2 File: ALU.v
+# ** Warning: (vsim-3015) ALU.v(194): [PCDPC] - Port size (1) does not match connection size (32) for port 'x4'. The port definition is at: ALU.v(30).
+#    Time: 0 ns  Iteration: 0  Instance: /ALU/hex2 File: ALU.v
+# ** Warning: (vsim-3015) ALU.v(209): [PCDPC] - Port size (1) does not match connection size (32) for port 'x1'. The port definition is at: ALU.v(30).
+#    Time: 0 ns  Iteration: 0  Instance: /ALU/hex3 File: ALU.v
+# ** Warning: (vsim-3015) ALU.v(209): [PCDPC] - Port size (1) does not match connection size (32) for port 'x2'. The port definition is at: ALU.v(30).
+#    Time: 0 ns  Iteration: 0  Instance: /ALU/hex3 File: ALU.v
+# ** Warning: (vsim-3015) ALU.v(209): [PCDPC] - Port size (1) does not match connection size (32) for port 'x3'. The port definition is at: ALU.v(30).
+#    Time: 0 ns  Iteration: 0  Instance: /ALU/hex3 File: ALU.v
+# ** Warning: (vsim-3015) ALU.v(209): [PCDPC] - Port size (1) does not match connection size (32) for port 'x4'. The port definition is at: ALU.v(30).
+#    Time: 0 ns  Iteration: 0  Instance: /ALU/hex3 File: ALU.v
+# End time: 00:02:14 on Oct 09,2019, Elapsed time: 0:20:45
+# Errors: 0, Warnings: 13

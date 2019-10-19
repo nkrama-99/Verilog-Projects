@@ -1,0 +1,127 @@
+# Reading D:/intelFPGA_lite/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# do mux_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying D:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -vlog01compat -work work +incdir+E:/Projects/ECE241/lab2pt1/mux {E:/Projects/ECE241/lab2pt1/mux/mux.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:25:47 on Sep 22,2019
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+E:/Projects/ECE241/lab2pt1/mux" E:/Projects/ECE241/lab2pt1/mux/mux.v 
+# -- Compiling module mux
+# -- Compiling module mux2to1
+# 
+# Top level modules:
+# 	mux
+# End time: 21:25:47 on Sep 22,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+dir
+#  Volume in drive E is My Data
+#  Volume Serial Number is BEF0-73C0
+# 
+#  Directory of E:\Projects\ECE241\lab2pt1\mux\simulation\modelsim
+# 
+# 09/22/2019  09:25 PM    <DIR>          .
+# 09/22/2019  09:25 PM    <DIR>          ..
+# 09/22/2019  09:25 PM            11,131 modelsim.ini
+# 09/22/2019  09:25 PM             1,002 msim_transcript
+# 09/22/2019  05:38 PM                43 mux.sft
+# 09/22/2019  05:38 PM            12,648 mux.vo
+# 09/22/2019  05:38 PM             1,336 mux_modelsim.xrf
+# 09/22/2019  09:25 PM               223 mux_run_msim_rtl_verilog.do
+# 09/22/2019  01:01 AM               223 mux_run_msim_rtl_verilog.do.bak
+# 09/22/2019  01:03 AM               223 mux_run_msim_rtl_verilog.do.bak1
+# 09/22/2019  01:05 AM               223 mux_run_msim_rtl_verilog.do.bak2
+# 09/22/2019  01:06 AM               223 mux_run_msim_rtl_verilog.do.bak3
+# 09/22/2019  01:13 AM               223 mux_run_msim_rtl_verilog.do.bak4
+# 09/22/2019  05:21 PM               223 mux_run_msim_rtl_verilog.do.bak5
+# 09/22/2019  05:31 PM               223 mux_run_msim_rtl_verilog.do.bak6
+# 09/22/2019  05:39 PM               223 mux_run_msim_rtl_verilog.do.bak7
+# 09/22/2019  09:25 PM    <DIR>          rtl_work
+# 09/22/2019  05:50 PM            57,344 vsim.wlf
+# 09/22/2019  01:02 AM    <DIR>          work
+#               15 File(s)         85,511 bytes
+#                4 Dir(s)  285,882,068,992 bytes free
+cd e:
+# reading modelsim.ini
+dir
+#  Volume in drive E is My Data
+#  Volume Serial Number is BEF0-73C0
+# 
+#  Directory of E:\Projects\ECE241\lab2pt1\mux\simulation\modelsim
+# 
+# 09/22/2019  09:25 PM    <DIR>          .
+# 09/22/2019  09:25 PM    <DIR>          ..
+# 09/22/2019  09:25 PM            11,131 modelsim.ini
+# 09/22/2019  09:28 PM             2,467 msim_transcript
+# 09/22/2019  05:38 PM                43 mux.sft
+# 09/22/2019  05:38 PM            12,648 mux.vo
+# 09/22/2019  05:38 PM             1,336 mux_modelsim.xrf
+# 09/22/2019  09:25 PM               223 mux_run_msim_rtl_verilog.do
+# 09/22/2019  01:01 AM               223 mux_run_msim_rtl_verilog.do.bak
+# 09/22/2019  01:03 AM               223 mux_run_msim_rtl_verilog.do.bak1
+# 09/22/2019  01:05 AM               223 mux_run_msim_rtl_verilog.do.bak2
+# 09/22/2019  01:06 AM               223 mux_run_msim_rtl_verilog.do.bak3
+# 09/22/2019  01:13 AM               223 mux_run_msim_rtl_verilog.do.bak4
+# 09/22/2019  05:21 PM               223 mux_run_msim_rtl_verilog.do.bak5
+# 09/22/2019  05:31 PM               223 mux_run_msim_rtl_verilog.do.bak6
+# 09/22/2019  05:39 PM               223 mux_run_msim_rtl_verilog.do.bak7
+# 09/22/2019  09:25 PM    <DIR>          rtl_work
+# 09/22/2019  05:50 PM            57,344 vsim.wlf
+# 09/22/2019  01:02 AM    <DIR>          work
+#               15 File(s)         86,976 bytes
+#                4 Dir(s)  285,882,068,992 bytes free
+cd ..
+# reading D:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini
+cd ..
+dir
+#  Volume in drive E is My Data
+#  Volume Serial Number is BEF0-73C0
+# 
+#  Directory of E:\Projects\ECE241\lab2pt1\mux
+# 
+# 09/22/2019  09:24 PM    <DIR>          .
+# 09/22/2019  09:24 PM    <DIR>          ..
+# 09/22/2019  06:05 PM    <DIR>          00 submission
+# 09/22/2019  05:38 PM             4,875 c5_pin_model_dump.txt
+# 09/22/2019  09:25 PM    <DIR>          db
+# 09/22/2019  12:41 AM    <DIR>          incremental_db
+# 09/22/2019  12:40 AM             1,318 mux.qpf
+# 09/22/2019  05:37 PM            15,078 mux.qsf
+# 09/22/2019  05:37 PM            15,082 mux.qsf.bak
+# 09/22/2019  05:36 PM               555 mux.v
+# 09/21/2019  01:35 PM               555 mux.v.bak
+# 09/22/2019  09:25 PM             1,049 mux_nativelink_simulation.rpt
+# 09/22/2019  05:38 PM    <DIR>          output_files
+# 09/22/2019  01:01 AM    <DIR>          simulation
+# 09/22/2019  06:05 PM            57,344 vsim.wlf
+# 09/21/2019  01:35 PM             1,333 wave.do
+# 09/22/2019  06:03 PM               799 wave_rama.do
+# 09/22/2019  06:03 PM    <DIR>          work
+#               10 File(s)         97,988 bytes
+#                8 Dir(s)  285,882,068,992 bytes free
+do wave_rama.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:28:43 on Sep 22,2019
+# vlog -reportprogress 300 mux.v 
+# -- Compiling module mux
+# -- Compiling module mux2to1
+# 
+# Top level modules:
+# 	mux
+# End time: 21:28:43 on Sep 22,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim mux 
+# Start time: 21:28:43 on Sep 22,2019
+# Loading work.mux
+# Loading work.mux2to1
+# End time: 22:46:43 on Sep 22,2019, Elapsed time: 1:18:00
+# Errors: 0, Warnings: 0
