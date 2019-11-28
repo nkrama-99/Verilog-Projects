@@ -1,0 +1,2 @@
+Warning (10268): Verilog HDL information at fill.v(382): always construct contains both blocking and non-blocking assignments File: C:/DESL/Quartus18/fill.v Line: 382
+Warning (10268): Verilog HDL information at fill.v(742): always construct contains both blocking and non-blocking assignments File: C:/DESL/Quartus18/fill.v Line: 742

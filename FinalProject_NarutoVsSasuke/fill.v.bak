@@ -1,0 +1,649 @@
+/*
+NOTES:
+4 pixels appearing at the end but not moving
+yellow pixel going back to center for some reason
+
+*/
+
+
+module fill
+	(
+		CLOCK_50,						//	On Board 50 MHz
+		// Your inputs and outputs here
+		KEY,							// On Board Keys
+		LEDR,
+		SW,
+        HEX0,
+        HEX1,
+        HEX2,
+        HEX3,
+        HEX4,
+        HEX5,
+		// The ports below are for the VGA output.  Do not change.
+		VGA_CLK,   						//	VGA Clock
+		VGA_HS,							//	VGA H_SYNC
+		VGA_VS,							//	VGA V_SYNC
+		VGA_BLANK_N,						//	VGA BLANK
+		VGA_SYNC_N,						//	VGA SYNC
+		VGA_R,   						//	VGA Red[9:0]
+		VGA_G,	 						//	VGA Green[9:0]
+		VGA_B   						//	VGA Blue[9:0]
+	);
+
+	input			    CLOCK_50;				//	50 MHz
+	input	[3:0]	    KEY;					
+	output [9:0]    LEDR;
+	input [9:0]         SW;
+    output [6:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5;
+	
+    // Declare your inputs and outputs here
+	// Do not change the following outputs
+	output			VGA_CLK;   				//	VGA Clock
+	output			VGA_HS;					//	VGA H_SYNC
+	output			VGA_VS;					//	VGA V_SYNC
+	output			VGA_BLANK_N;				//	VGA BLANK
+	output			VGA_SYNC_N;				//	VGA SYNC
+	output	[7:0]	VGA_R;   				//	VGA Red[7:0] Changed from 10 to 8-bit DAC
+	output	[7:0]	VGA_G;	 				//	VGA Green[7:0]
+	output	[7:0]	VGA_B;   				//	VGA Blue[7:0]
+	
+	wire resetn;
+	assign resetn = 1'b1;
+	
+	// Create the colour, x, y and writeEn wires that are inputs to the controller.
+
+    // FSM wires
+	wire [2:0] colour;
+	wire [10:0] x;
+	wire [10:0] y;
+	wire writeEn;
+    wire [3:0] state;
+
+    wire [10:0] useless;
+
+    // rate divider wires
+    wire [25:0] counter_out;
+    wire clock_out;
+    wire [25:0] upperBound_out;
+    wire [1:0] clock_setting;
+
+    //NOTE: Position marks the place to be printed so 
+    // sasuke & shuriken wires
+    wire [10:0] sasukePositionX;
+    wire [10:0] sasukePositionY;
+    wire [10:0] shurikenOriginX;
+    wire [10:0] shurikenOriginY;
+    wire [3:0] shurikenDirection;
+    wire [10:0] shurikenPosX;
+    wire [10:0] shurikenPosY;
+
+	// Create an Instance of a VGA controller - there can be only one!
+	// Define the number of colours as well as the initial background
+	// image file (.MIF) for the controller.
+	vga_adapter VGA(
+			.resetn(resetn),
+			.clock(CLOCK_50),
+			.colour(colour),
+			.x(x),
+			.y(y),
+			.plot(writeEn),
+			/* Signals for the DAC to drive the monitor. */
+			.VGA_R(VGA_R),
+			.VGA_G(VGA_G),
+			.VGA_B(VGA_B),
+			.VGA_HS(VGA_HS),
+			.VGA_VS(VGA_VS),
+			.VGA_BLANK(VGA_BLANK_N),
+			.VGA_SYNC(VGA_SYNC_N),
+			.VGA_CLK(VGA_CLK));
+		defparam VGA.RESOLUTION = "320x240";
+		defparam VGA.MONOCHROME = "FALSE";
+		defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
+		defparam VGA.BACKGROUND_IMAGE = "black.mif";
+			
+	// Put your code here. Your code should produce signals x,y,colour and writeEn
+	// for the VGA controller, in addition to any other functionality your design may require.
+
+    sasukeOrigin sasuke0 (
+        .keyInput(~KEY[3:0]),
+        .sasukeOriginX(sasukePositionX),
+        .sasukeOriginY(sasukePositionY),
+        .LEDoutput(useless[3:0])
+    );
+
+    shurikenOrigin shuriken0 (
+        .LEDoutput(LEDR[3:0]),
+        .clk(CLOCK_50),
+        .keyInput(SW[3:0]),
+        .shurikenOriginX(shurikenOriginX),
+        .shurikenOriginY(shurikenOriginY),
+        .shurikenDirection(shurikenDirection)
+    );
+
+    wire [25:0] test_wait_counter;
+
+    controller D0 (
+        .LEDoutput(LEDR[9:6]),
+        .clk(CLOCK_50),
+        .test(test_wait_counter),
+        .resetGame(SW[9]),
+        .sasukePosX(sasukePositionX),
+        .sasukePosY(sasukePositionY),
+        .shurikenOriginX(shurikenOriginX),
+        .shurikenOriginY(shurikenOriginY),
+        .shurikenDirection(shurikenDirection),
+        .x(x),
+        .y(y),
+        .colour(colour),
+        .writeEn(writeEn)
+    );
+
+    frequency F0 (
+        .select(2'b00),
+        .upperBound(upperBound_out)
+    );
+
+	rateDivider RD0 (
+        .clock(CLOCK_50),
+        .upperBound(upperBound_out),
+        .enable(clock_out),
+        .counter(counter_out)
+    );
+
+    hex_decoder H0( //originY
+        .hex_digit(test_wait_counter[3:0]), 
+        .segments(HEX0)
+    );
+
+    hex_decoder H1( //originX
+        .hex_digit(test_wait_counter[7:4]), 
+        .segments(HEX1)
+    );
+
+endmodule
+
+module sasukeOrigin (keyInput, sasukeOriginX, sasukeOriginY, LEDoutput);
+
+	localparam 		S_UP		= 4'b0100,
+					S_DOWN		= 4'b0010,
+					S_LEFT 		= 4'b1000,
+					S_RIGHT		= 4'b0001,
+					S_NONE	 	= 4'b0000;
+
+	input [3:0] keyInput;
+	output reg [10:0] sasukeOriginX;
+    output reg [10:0] sasukeOriginY;
+    output reg [3:0] LEDoutput;
+	
+	always @(*) 
+	begin
+		case (keyInput[3:0])
+			S_LEFT: begin 
+				sasukeOriginX <= 11'd150;
+                sasukeOriginY <= 11'd120;
+                LEDoutput <= S_LEFT;
+			end
+			
+			S_UP: begin 
+				sasukeOriginX <= 11'd160;
+                sasukeOriginY <= 11'd110;
+                LEDoutput <= S_UP;
+			end
+			
+			S_DOWN: begin 
+				sasukeOriginX <= 11'd160;
+                sasukeOriginY <= 11'd130;
+                LEDoutput <= S_DOWN;
+			end
+			
+			S_RIGHT: begin 
+				sasukeOriginX <= 11'd170;
+                sasukeOriginY <= 11'd120;
+                LEDoutput <= S_RIGHT;
+			end
+			
+			// S_NONE: begin //none pressed - center
+            //     sasukeOriginX <= ;
+            //     sasukeOriginY <= ;
+			// end
+			
+			default: begin //default (including none pressed) - position at center
+                sasukeOriginX <= 11'd160;
+                sasukeOriginY <= 11'd120;
+                LEDoutput <= S_NONE;
+            end
+		endcase
+	end
+	
+endmodule
+
+module shurikenOrigin (LEDoutput, clk, keyInput, shurikenOriginX, shurikenOriginY, shurikenDirection);
+
+	localparam 		S_UP		= 4'b0100,
+					S_DOWN		= 4'b0010,
+					S_LEFT 		= 4'b1000,
+					S_RIGHT		= 4'b0001,
+					S_NONE	 	= 4'b0000;
+
+	input [3:0] keyInput;
+    input clk;
+	output reg [10:0] shurikenOriginX;
+    output reg [10:0] shurikenOriginY;
+    output reg [3:0] shurikenDirection;
+    output reg [3:0] LEDoutput;
+	
+	always@(clk) 
+	begin
+		case (keyInput[3:0])
+			S_LEFT: begin 
+				shurikenOriginX <= 11'd0;
+                shurikenOriginY <= 11'd120;
+                shurikenDirection <= S_LEFT;
+                LEDoutput <= S_LEFT;
+			end
+			
+			S_UP: begin 
+				shurikenOriginX <= 11'd160;
+                shurikenOriginY <= 11'd0;
+                shurikenDirection <= S_UP;
+                LEDoutput <= S_UP;
+			end
+			
+			S_DOWN: begin 
+				shurikenOriginX <= 11'd160;
+                shurikenOriginY <= 11'd240;
+                shurikenDirection <= S_DOWN;
+                LEDoutput <= S_DOWN;
+			end
+			
+			S_RIGHT: begin 
+				shurikenOriginX <= 11'd320;
+                shurikenOriginY <= 11'd120;
+                shurikenDirection <= S_RIGHT;
+                LEDoutput <= S_RIGHT;
+			end
+			
+			// S_NONE: begin //none pressed - center
+            //     shurikenOriginX <= ;
+            //     shurikenOriginY <= ;
+			// end
+			
+			default: begin //default (including none pressed) - position at center
+                // do nothing
+                shurikenDirection <= S_NONE;
+                LEDoutput <= S_NONE;
+            end
+		endcase
+	end
+	
+endmodule
+
+module controller (
+        LEDoutput, clk, test, resetGame,
+        sasukePosX, sasukePosY,
+        shurikenOriginX, shurikenOriginY, shurikenDirection,
+        x, y, colour, writeEn
+    );
+
+ 	localparam	S_DRAW_BG		    = 6'b000001,
+                S_LOCATE_SHURIKEN   = 6'b000010,
+                S_DRAW_SHURIKEN     = 6'b000100,
+                S_DRAW_SASUKE       = 6'b001000,
+                S_WAIT              = 6'b010000,
+                S_RESET             = 6'b100000;
+
+    output reg [10:0] x;
+    output reg [10:0] y;
+    output reg writeEn;
+    output reg [2:0] colour;
+
+    input resetGame;
+    input [10:0] sasukePosX;
+    input [10:0] sasukePosY;
+    input [10:0] shurikenOriginX;
+    input [10:0] shurikenOriginY;
+    input [3:0] shurikenDirection;
+    
+    output reg [3:0] LEDoutput;
+	input clk;
+    output [25:0] test;
+
+    reg [5:0] currentState;
+    reg [5:0] nextState;
+
+    // counter wires
+    reg [10:0] x_loop_bg;
+    reg [10:0] y_loop_bg;
+    reg [10:0] x_loop_reset;
+    reg [10:0] y_loop_reset;
+    reg [5:0] x_loop_sasuke;
+    reg [5:0] y_loop_sasuke;
+    reg [10:0] x_loop_shu;
+    reg [10:0] y_loop_shu;
+    reg [5:0] x_loop_shuriken;
+    reg [5:0] y_loop_shuriken;
+    reg [20:0] counter_bg;
+    reg [25:0] counter_wait;
+    reg [10:0] counter_sasuke;
+    reg [10:0] counter_shuriken;
+
+    // state transition definition
+    always@(posedge clk) 
+    begin
+        case (currentState)
+            
+            S_DRAW_BG: begin 
+
+                // execute background printing
+                if (y_loop_bg != 11'd240) begin
+                    if (x_loop_bg == 11'd320) begin
+                        x_loop_bg = 0;
+                        y_loop_bg = y_loop_bg + 1;
+                    end
+                    else begin
+                        x_loop_bg = x_loop_bg + 1;
+                    end
+                end
+                else begin
+                    y_loop_bg = 0;
+                end
+                
+                // assignment of vga wires
+                x = x_loop_bg;
+                y = y_loop_bg;
+                colour = 3'b111;
+                writeEn = 1'b1;
+
+                // conditions to switch state
+                if (counter_bg == 21'd76800) begin
+                    counter_sasuke = 0; //reset counter for sasuke
+                    x_loop_sasuke = 0;
+                    y_loop_sasuke = 0;
+                    nextState = S_DRAW_SASUKE;
+                end
+                else begin
+                    counter_bg = counter_bg + 1;
+                    nextState = S_DRAW_BG;
+                end
+
+            end
+            
+            S_DRAW_SASUKE: begin
+                
+                // execute sasuke printing
+                if (y_loop_sasuke != 6'd3) begin
+                    if (x_loop_sasuke == 6'd3) begin
+                        x_loop_sasuke = 0;
+                        y_loop_sasuke = y_loop_sasuke + 1;
+                    end
+                    else begin
+                        x_loop_sasuke = x_loop_sasuke + 1;
+                    end
+                end
+                else begin
+                    y_loop_sasuke = 0;
+                end
+
+                // assignment of vga wires
+                x = sasukePosX + x_loop_sasuke - 1;
+                y = sasukePosY + y_loop_sasuke - 1;
+                colour = 3'b100;
+                writeEn = 1'b1;
+
+                // conditions to switch state
+                if (counter_sasuke == 11'd15) begin
+                    nextState = S_LOCATE_SHURIKEN;
+                end
+                else begin
+                    counter_sasuke = counter_sasuke + 1;
+                    nextState = S_DRAW_SASUKE;
+                end
+
+            end
+
+            S_LOCATE_SHURIKEN: begin
+                
+                // execute shuriken printing
+                // reached center so must reset
+                // move from right
+                if (shurikenDirection == 4'b1000) begin
+                    if (x_loop_shu == 11'd160 && y_loop_shu == 11'd120) begin
+                        x_loop_shu = shurikenOriginX;
+                        y_loop_shu = shurikenOriginY;
+                    end
+                    
+                    else begin
+                        x_loop_shu = x_loop_shu + 1;
+                        y_loop_shu = y_loop_shu;
+                    end
+
+                    LEDoutput = 4'b1000;
+                    writeEn = 1'b1;
+                end
+
+                //move from left
+                if (shurikenDirection == 4'b0001) begin
+                    if (x_loop_shu == 11'd160 && y_loop_shu == 11'd120) begin //reached center so reset
+                        x_loop_shu = shurikenOriginX;
+                        y_loop_shu = shurikenOriginY;
+                    end
+                    
+                    else begin
+                        x_loop_shu = x_loop_shu - 1;
+                        y_loop_shu = y_loop_shu;
+                    end
+
+                    LEDoutput = 4'b0001;
+                    writeEn = 1'b1;
+                end
+
+                //move from down
+                if (shurikenDirection == 4'b0010) begin
+                    if (x_loop_shu == 11'd160 && y_loop_shu == 11'd120) begin //reached center so reset
+                        x_loop_shu = shurikenOriginX;
+                        y_loop_shu = shurikenOriginY;
+                    end
+                    
+                    else begin
+                        x_loop_shu = x_loop_shu;
+                        y_loop_shu = y_loop_shu - 1;
+                    end
+
+                    LEDoutput = 4'b0010;
+                    writeEn = 1'b1;
+                end
+
+                //move from up
+                if (shurikenDirection == 4'b0100) begin
+                    if (x_loop_shu == 11'd160 && y_loop_shu == 11'd120) begin //reached center so reset
+                        x_loop_shu = shurikenOriginX;
+                        y_loop_shu = shurikenOriginY;
+                    end
+                    
+                    else begin
+                        x_loop_shu = x_loop_shu;
+                        y_loop_shu = y_loop_shu + 1;
+                    end
+
+                    LEDoutput = 4'b0100;
+                    writeEn = 1'b1;
+                end
+
+                //if NONE
+                if (shurikenDirection == 4'b0000) begin
+                    x_loop_shu =  11'd160;
+                    y_loop_shu = 11'd120;
+                    writeEn = 1'b0;
+                end
+
+                // assignment of vga wires
+                x = x_loop_shu;
+                y = y_loop_shu;
+                colour = 3'b001;
+                
+                // conditions to switch state
+                counter_shuriken = 0;
+                nextState = S_DRAW_SHURIKEN;
+
+            end
+
+            S_DRAW_SHURIKEN: begin 
+                
+                // execute shuriken printing
+                if (y_loop_shuriken != 6'd3) begin
+                    if (x_loop_shuriken == 6'd3) begin
+                        x_loop_shuriken = 0;
+                        y_loop_shuriken = y_loop_shuriken + 1;
+                    end
+                    else begin
+                        x_loop_shuriken = x_loop_shuriken + 1;
+                    end
+                end
+                else begin
+                    y_loop_shuriken = 0;
+                end
+
+                // assignment of vga wires
+                x = x_loop_shu + x_loop_shuriken - 1;
+                y = y_loop_shu + y_loop_shuriken - 1;
+                colour = 3'b001;
+                
+                if (shurikenDirection == 4'b0000) writeEn = 1'b0;
+                else writeEn = 1'b1;
+
+                // conditions to switch state
+                if (counter_shuriken == 11'd15) begin
+                    counter_wait = 0; //reset counter for sasuke
+                    nextState = S_WAIT;
+                end
+                else begin
+                    counter_shuriken = counter_shuriken + 1;
+                    nextState = S_DRAW_SHURIKEN;
+                end
+
+            end
+
+            S_WAIT: begin
+
+                // do nothing for about 200ms just to allow the human eyes to see
+                // if (counter_wait == 26'd10000000) begin
+                if (counter_wait == 26'd1000000) begin
+                    counter_bg = 0; //reset loop condiditon for bg
+                    nextState = S_DRAW_BG;
+                end
+                else begin
+                    counter_wait = counter_wait + 1;
+                    nextState = S_WAIT;
+                end
+
+            end
+
+            S_RESET: begin 
+
+                // execute reset printing
+                if (y_loop_reset != 11'd240) begin
+                    if (x_loop_reset == 11'd320) begin
+                        x_loop_reset = 0;
+                        y_loop_reset = y_loop_reset + 1;
+                    end
+                    else begin
+                        x_loop_reset = x_loop_reset + 1;
+                    end
+                end
+                else begin
+                    y_loop_reset = 0;
+                end
+                
+                // assignment of vga wires
+                x = x_loop_reset;
+                y = y_loop_reset;
+                colour = 3'b010;
+                writeEn = 1'b1;
+
+            end
+
+            default: begin 
+                LEDoutput = 4'b1111;
+                nextState = S_DRAW_BG;
+            end
+
+        endcase
+    end
+
+
+    assign test = counter_bg;
+    
+    // state changer
+    always@(posedge clk)
+    begin
+        if (resetGame == 1'b1) begin 
+            currentState <= nextState;
+        end
+        else begin
+            currentState <= S_RESET;
+            nextState <= S_DRAW_BG;
+        end
+    end
+
+endmodule
+
+module hex_decoder(hex_digit, segments);
+    input [3:0] hex_digit;
+    output reg [6:0] segments;
+   
+    always @(*)
+        case (hex_digit)
+            4'h0: segments = 7'b100_0000;
+            4'h1: segments = 7'b111_1001;
+            4'h2: segments = 7'b010_0100;
+            4'h3: segments = 7'b011_0000;
+            4'h4: segments = 7'b001_1001;
+            4'h5: segments = 7'b001_0010;
+            4'h6: segments = 7'b000_0010;
+            4'h7: segments = 7'b111_1000;
+            4'h8: segments = 7'b000_0000;
+            4'h9: segments = 7'b001_1000;
+            4'hA: segments = 7'b000_1000;
+            4'hB: segments = 7'b000_0011;
+            4'hC: segments = 7'b100_0110;
+            4'hD: segments = 7'b010_0001;
+            4'hE: segments = 7'b000_0110;
+            4'hF: segments = 7'b000_1110;   
+            default: segments = 7'h7f;
+        endcase
+endmodule
+
+module frequency(input [1:0] select, output reg [25:0] upperBound);
+	
+    always @(*)
+		case(select[1:0])
+			2'b00: upperBound= 26'b1100101101110011010;
+			// 2'b01: upperBound= 26'b000101111101011110000011111;
+            2'b01: upperBound= 26'b11111010111100000111;
+			2'b10: upperBound = 26'b001011111010111100000111111;
+			2'b11: upperBound= 26'b010111110101111000001111111;
+		endcase
+
+endmodule
+
+module rateDivider(input clock, input [25:0] upperBound, output reg enable, output reg [25:0] counter);
+
+	always @(posedge clock)
+	begin
+		if (counter === 26'bx)
+		begin
+			counter <= 26'b0;
+		end 
+		else if (counter == upperBound)
+		begin
+			enable= 1'b1;
+			counter <= 26'b0;
+		end
+		else
+		begin
+			enable = 1'b0;
+			counter <= counter + 1 ;
+		end
+	end
+		
+endmodule

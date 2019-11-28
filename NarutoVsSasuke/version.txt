@@ -1,0 +1,4 @@
+Version=18.0.0.614
+[ACDS]
+Version=18.0.0.614
+Edition=standard
